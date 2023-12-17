@@ -49,10 +49,10 @@ The script generates an `output_timeline.txt` file containing information about 
 
 Example script output in the command line:
 ```
-1. Suomi: 01/01/2015 -- 04/02/2018 (34 days)
-2. Eesti: 11/12/2021 -- 13/12/2021 (2 days)
+1. Suomi: 01/01/2015 -- 04/02/2018 (35 days)
+2. Eesti: 11/12/2021 -- 13/12/2021 (3 days)
 ...
-99. Ísland: 01/08/2022 -- 27/08/2022 (26 days)
+99. Ísland: 01/08/2022 -- 27/08/2022 (27 days)
 ```
 ## Additional notes
 
