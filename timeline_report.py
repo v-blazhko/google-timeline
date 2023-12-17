@@ -84,7 +84,7 @@ def main():
 
             trips.append({
                 'destination': trip_start['country'],
-                'length_days': (end - start).days,
+                'length_days': (end - start).days + 1,
                 'start': start,
                 'end': end,
                 'description': formatted_string
