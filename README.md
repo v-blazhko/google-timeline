@@ -24,7 +24,7 @@ pip3 install tqdm geopy
 6. Choose your preferred export settings, including the file format and delivery method.
 7. Click on "Create export." Google will prepare your data, and you'll receive a notification once it's ready.
 8. Download the ZIP file containing your location history.
-9. Extract the contents and locate the JSON file (e.g., Takeout/Sijantihistoria/Records.json) for use with the script. You can move the script to the same folded with this script for simplicity.
+9. Extract the contents and locate the JSON file (e.g., `'./Takeout/Sijantihistoria/Records.json'`) for use with the script. You can move the script to the same folded with this script for simplicity.
 
 ## Usage
 
@@ -33,7 +33,7 @@ Run the script from the command line with the following options:
 ```bash
 python3 timeline_report.py --path <path_to_timeline_file> --step_hours <minimum_hours_between_location_checks> --start_year <start_year> --end_year <end_year>
 ```
-- path: Path to the Google Takeout timeline JSON file (e.g., './Takeout/Sijaintihistoria/Records.json').
+- path: Path to the Google Takeout timeline JSON file (e.g., `'./Takeout/Sijantihistoria/Records.json'`).
 - step_hours: Minimum hours between two location checks (recommended: 24).
 - start_year: Start year for analyzing location data.
 - end_year: End year for analyzing location data.
