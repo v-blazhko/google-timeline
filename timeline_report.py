@@ -49,8 +49,8 @@ def main():
         data = json.load(f)
 
     data_timeline = []
-    prev_timestamp = convertTimestamp('1970-02-09T10:30:46.085Z')
-    for entry in tqdm(data['locations']):
+    prev_timestamp = convertTimestamp('1970-01-01T00:00:00.000Z')
+    for entry in tqdm(data['locations'][60000:61000]):
         timestamp = convertTimestamp(entry['timestamp'])
         # Pick a timestamp once a step
         if ((timestamp - prev_timestamp).total_seconds() >= step) and (start_year <= timestamp.year <= end_year):
@@ -58,19 +58,29 @@ def main():
             if country != 'Unknown':
                 prev_timestamp = timestamp                             
                 data_timeline.append({'lat': convertCoords(entry['latitudeE7']), 'long': convertCoords(entry['longitudeE7']), 'country': country, 'timestamp': entry['timestamp']})
-
     
+    print("Saving raw output to 'output_raw.json'")
+    raw_file_path = 'output_raw.json'
+    json_data = json.dumps(data_timeline, indent=2)
+    with open(raw_file_path, 'w') as json_file:
+        json_file.write(json_data)
+
     trip_start = data_timeline[0]
     prev_entry = data_timeline[0]
+    if len(data_timeline) == 0:
+        print('No trips identified')
+        return
+    
     trips = []
-    for entry in data_timeline:
-        if entry['country'] != trip_start['country']:
+    trip_count = 1
+    for index, entry in enumerate(data_timeline):
+        if entry['country'] != trip_start['country'] or index == len(data_timeline) - 1:
             start = convertTimestamp(trip_start['timestamp'])
             end = convertTimestamp(prev_entry['timestamp'])
             formatted_start = start.strftime('%d/%m/%Y')
             formatted_end = end.strftime('%d/%m/%Y')
             country = prev_entry['country']
-            formatted_string = f'{country}: {formatted_start} -- {formatted_end} ({(end - start).days} days)'
+            formatted_string = f'{trip_count}. {country}: {formatted_start} -- {formatted_end} ({(end - start).days} days)'
 
             trips.append({
                 'destination': trip_start['country'],
@@ -80,14 +90,15 @@ def main():
                 'description': formatted_string
             })
             trip_start = entry
+            trip_count += 1
         prev_entry = entry
 
-    print("Saving output to 'output_timeline.json'")
-    file_path = 'output_timeline.json'
-    with open(file_path, 'w') as output_file:
+    print("Saving timeline output to 'output_timeline.txt'")
+    trips_file_path = 'output_timeline.txt'
+    with open(trips_file_path, 'w',  encoding='utf-8') as output_file:
         for index, trip in enumerate(trips, start=1):
-            output_file.write(f"{index}. {trip['destination']}\n")
-            print(f"{index}. {trip['destination']}\n")
+            output_file.write(f"{trip['description']}\n")
+            print(f"{trip['description']}\n")
 
 if __name__ == "__main__":
     main()

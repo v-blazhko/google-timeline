@@ -9,13 +9,13 @@ This Python script analyzes location data from the Google Takeout timeline file 
   - tqdm
   - geopy
 
-## Install the dependencies:
+## Installing the dependencies
 
 ```bash
 pip3 install tqdm geopy
 ```
 
-## How to Download Google Timeline Data
+## How to download Google Timeline data
 1. Visit the Google Takeout website: [Google Takeout](https://takeout.google.com/).
 2. Log in with your Google account.
 3. Scroll down to find "Location History" or "Location Services" in the list of available services.
@@ -33,7 +33,7 @@ Run the script from the command line with the following options:
 ```bash
 python3 timeline_report.py --path <path_to_timeline_file> --step_hours <minimum_hours_between_location_checks> --start_year <start_year> --end_year <end_year>
 ```
-- path: Path to the Google Takeout timeline file (e.g., './Takeout/Sijaintihistoria/Records.json').
+- path: Path to the Google Takeout timeline JSON file (e.g., './Takeout/Sijaintihistoria/Records.json').
 - step_hours: Minimum hours between two location checks (recommended: 24).
 - start_year: Start year for analyzing location data.
 - end_year: End year for analyzing location data.
@@ -45,17 +45,17 @@ python3 timeline_report.py --path './Takeout/Sijantihistoria/Records.json' --ste
 
 ## Output
 
-The script generates an output_timeline.json file containing information about identified trips, including the destination, length in days, start and end dates, and a description, as well as outputs the result in the terminal.
+The script generates an `output_timeline.txt` file containing information about identified trips, including the destination, length in days, start and end dates, and a description, as well as outputs the result in the terminal.
 
-Example script output in the commend line:
+Example script output in the command line:
 ```
 1. Suomi: 01/01/2015 -- 04/02/2018 (34 days)
 2. Eesti: 11/12/2021 -- 13/12/2021 (2 days)
 ...
 99. Ísland: 01/08/2022 -- 27/08/2022 (26 days)
 ```
-## Additional Notes
+## Additional notes
 
-The script utilizes the geopy library to reverse geocode latitude and longitude coordinates into country names.
-The output_timeline.json file contains details about each identified trip, which can be further processed or used for analysis.
+The script utilizes the `geopy` library to reverse geocode latitude and longitude coordinates into country names.
+The `output_timeline.txt` file contains details about each identified trip, and `output_raw.json` contains raw timeline data, which can be further processed or used for analysis.
 Feel free to customize the script according to your specific requirements.
