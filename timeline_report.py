@@ -50,7 +50,7 @@ def main():
 
     data_timeline = []
     prev_timestamp = convertTimestamp('1970-01-01T00:00:00.000Z')
-    for entry in tqdm(data['locations'][60000:61000]):
+    for entry in tqdm(data['locations']):
         timestamp = convertTimestamp(entry['timestamp'])
         # Pick a timestamp once a step
         if ((timestamp - prev_timestamp).total_seconds() >= step) and (start_year <= timestamp.year <= end_year):
@@ -61,8 +61,8 @@ def main():
     
     print("Saving raw output to 'output_raw.json'")
     raw_file_path = 'output_raw.json'
-    json_data = json.dumps(data_timeline, indent=2)
-    with open(raw_file_path, 'w') as json_file:
+    json_data = json.dumps(data_timeline, indent=2, ensure_ascii=False).encode('utf8')
+    with open(raw_file_path, 'wb') as json_file:
         json_file.write(json_data)
 
     trip_start = data_timeline[0]
@@ -95,7 +95,7 @@ def main():
 
     print("Saving timeline output to 'output_timeline.txt'")
     trips_file_path = 'output_timeline.txt'
-    with open(trips_file_path, 'w',  encoding='utf-8') as output_file:
+    with open(trips_file_path, 'w', encoding='utf-8') as output_file:
         for index, trip in enumerate(trips, start=1):
             output_file.write(f"{trip['description']}\n")
             print(f"{trip['description']}\n")
